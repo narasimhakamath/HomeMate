@@ -1,20 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import 'react-native-gesture-handler';
+import React, { useCallback } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { NavigationContainer } from '@react-navigation/native';
+
+import theme from './src/utils/theme';
+import { StyleSheet, View } from 'react-native';
+import AuthenticationStack from './src/navigators/AuthenticationStack';
+import HomeStack from './src/navigators/HomeStack';
+
+const App = () => {
+	const [fontsLoaded, fontError] = useFonts({
+		'Makisupa': require('./src/assets/fonts/Makisupa.ttf'),
+		'Sono-ExtraLight': require('./src/assets/fonts/Sono-ExtraLight.ttf'),
+		'Sono-Light': require('./src/assets/fonts/Sono-Light.ttf'),
+		'Sono-Regular': require('./src/assets/fonts/Sono-Regular.ttf'),
+		'Sono-Medium': require('./src/assets/fonts/Sono-Medium.ttf'),
+		'Sono-SemiBold': require('./src/assets/fonts/Sono-SemiBold.ttf'),
+		'Sono-Bold': require('./src/assets/fonts/Sono-Bold.ttf'),
+		'Sono-ExtraBold': require('./src/assets/fonts/Sono-ExtraBold.ttf'),
+	});
+
+	const onLayoutRootView = useCallback(async () => {
+		if(fontsLoaded || fontError)
+			await SplashScreen.hideAsync();
+	}, [fontsLoaded, fontError]);
+
+	if(!fontsLoaded && !fontError)
+		return null;
+
+	return (
+		<View style={styles.root} onLayout={onLayoutRootView}>
+			<ThemeProvider theme={theme}>
+				<NavigationContainer>
+					{/* <AuthenticationStack/> */}
+					<HomeStack />
+				</NavigationContainer>
+			</ThemeProvider>
+		</View>
+	);
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	root: {
+		flex: 1
+	}
+})
+
+export default App;
