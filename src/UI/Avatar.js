@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, TouchableOpacity } from "react-native";
 import styled from "styled-components";
+import ImageModal from "../components/ImageModal";
 
 const Avatar = ({ imageURI }) => {
-	const onPressImage = () => {
-		console.log("Enlare the image!");
-	};
+	const [openImage, setOpenImage] = useState(false);
+
+	const openModal = () => setOpenImage(true);
+	const closeModal = () => setOpenImage(false);
 
 	return(
-		<ImageContainer onPress={onPressImage}>
-			<UserImage source={{uri: imageURI}} />
-		</ImageContainer>
+		<>
+			<ImageContainer onPress={openModal}>
+				<UserImage source={{uri: imageURI}} />
+			</ImageContainer>
+
+			<ImageModal
+				imageURI={imageURI}
+				isVisible={openImage}
+				closeModal={closeModal}
+			/>
+		</>
 	);
 };
 
