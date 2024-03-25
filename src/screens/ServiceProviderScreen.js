@@ -20,7 +20,7 @@ import Title from "../UI/Title";
 
 
 const ServiceProviderScreen = () => {
-	let {isLoading, isError, data} = useQueryServiceProvider(1);
+	let { isLoading, isError, data: serviceProvider } = useQueryServiceProvider(1);
 
 	if(isLoading)
 		return <LoadingScreen />
@@ -29,7 +29,7 @@ const ServiceProviderScreen = () => {
 		return <ErrorScreen />
 
 	const callServiceProvider = () => {
-		return Linking.openURL(`tel:${data?.phoneNumber}`);
+		return Linking.openURL(`tel:${serviceProvider?.phoneNumber}`);
 	};
 
 	const shareUserProfile = async () => {
@@ -50,9 +50,8 @@ const ServiceProviderScreen = () => {
 
 	const whatsappServiceProvider = async () => {
 		const isValid = await Linking.canOpenURL('whatsapp://send');
-		console.log("isValid", isValid);
 		if(isValid)
-			return Linking.openURL(`whatsapp://send?phone=${data?.whatsappNumber}`);
+			return Linking.openURL(`whatsapp://send?phone=${serviceProvider?.whatsappNumber}`);
 		Toast.show({
 			type: 'error',
 			text1: WHATSAPP_IS_NOT_INSTALLED_IN_YOUR_DEVICE,
@@ -67,19 +66,20 @@ const ServiceProviderScreen = () => {
 					<ViewBox flexDirection="row" alignItems="center">
 						<ViewBox mx={5}>
 							<Avatar
-								imageURI={data?.imageURI}
+								imageURI={serviceProvider?.imageURI}
+								size={30}
 							/>
 						</ViewBox>
 
 						<ViewBox flex={1}>
-							<Heading fontWeight={600} textAlign="center" mt={5}>{data?.name}</Heading>
+							<Heading fontWeight={600} textAlign="center" mt={5}>{serviceProvider?.name}</Heading>
 							<ViewBox mt={4} flexDirection="row" justifyContent="space-around" mx={10}>
 								<ViewBox flexDirection="column">
-									<Subheading  fontWeight={600} fontSize={5} textAlign="center">{data?.totalEvents}</Subheading>
+									<Subheading  fontWeight={600} fontSize={5} textAlign="center">{serviceProvider?.totalEvents}</Subheading>
 									<Subheading fontWeight={300} textAlign="center">{EVENTS}</Subheading>
 								</ViewBox>
 								<ViewBox flexDirection="column">
-									<Subheading fontWeight={600} fontSize={5} textAlign="center">{data?.totalUsers}</Subheading>
+									<Subheading fontWeight={600} fontSize={5} textAlign="center">{serviceProvider?.totalUsers}</Subheading>
 									<Subheading fontWeight={300} textAlign="center">{USERS}</Subheading>
 								</ViewBox>
 							</ViewBox>
@@ -100,12 +100,12 @@ const ServiceProviderScreen = () => {
 
 					<ViewBox mt={5} px={5}>
 						<Heading my={3} fontWeight={500}>{ABOUT_ME}</Heading>
-						<Subheading fontWeight={400}>{data?.introduction}</Subheading>
+						<Subheading fontWeight={400}>{serviceProvider?.introduction}</Subheading>
 					</ViewBox>
 
 					<ViewBox mt={5} px={5}>
 						<Heading my={3} fontWeight={500}>{PHOTOS}</Heading>
-						<PhotoGridContainer images={data?.pictures}/>
+						<PhotoGridContainer images={serviceProvider?.pictures}/>
 					</ViewBox>
 				</ViewBox>
 			</Screen>

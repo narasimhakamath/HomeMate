@@ -10,12 +10,12 @@ import { ERROR1, ERROR2 } from "../utils/strings";
 const ErrorScreen = () => {
 	return(
 		<ViewBox flex={1} justifyContent="center">
+			<Heading textAlign="center" fontWeight={600}>{ERROR1}</Heading>
+			<Subheading textAlign="center">{ERROR2}</Subheading>
 			<Lottie
 				autoPlay={true}
 				source={require("../assets/animations/Error.json")}
 			/>
-			<Heading textAlign="center" fontWeight={600}>{ERROR1}</Heading>
-			<Subheading textAlign="center">{ERROR2}</Subheading>
 		</ViewBox>
 	);
 };

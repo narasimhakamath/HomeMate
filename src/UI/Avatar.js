@@ -3,7 +3,7 @@ import { Image, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import ImageModal from "../components/ImageModal";
 
-const Avatar = ({ imageURI }) => {
+const Avatar = ({ imageURI, size }) => {
 	const [openImage, setOpenImage] = useState(false);
 
 	const openModal = () => setOpenImage(true);
@@ -11,7 +11,7 @@ const Avatar = ({ imageURI }) => {
 
 	return(
 		<>
-			<ImageContainer onPress={openModal}>
+			<ImageContainer onPress={openModal} size={size}>
 				<UserImage source={{uri: imageURI}} />
 			</ImageContainer>
 
@@ -25,11 +25,11 @@ const Avatar = ({ imageURI }) => {
 };
 
 const ImageContainer = styled(TouchableOpacity)`
-	width: ${({ theme }) => theme.shape.spacing(30)}px;
-	height: ${({ theme }) => theme.shape.spacing(30)}px;
-	borderRadius: ${({ theme }) => theme.shape.spacing(30)}px;
+	width: ${({ theme, size }) => theme.shape.spacing(size || 30)}px;
+	height: ${({ theme, size }) => theme.shape.spacing(size || 30)}px;
+	borderRadius: ${({ theme, size }) => theme.shape.spacing(size / 2)}px;
 	overflow: hidden;
-	border: ${({ theme }) => theme.shape.spacing(1)}px;
+	border: ${({ theme }) => theme.shape.spacing(0.25)}px;
 	border-color: ${({ theme }) => theme.colors.grey.ultralight};
 `;
 

@@ -1,6 +1,9 @@
 export const HOMEMATE = 'HOMEMATE';
 export const GET_STARTED = 'Get Started';
-export const INTRODUCTION_TEXT = 'Find your cook and maid for every ocassion'
+export const INTRODUCTION_TEXT = 'Find your cook and maid for every ocassion';
+
+export const SERVICE_PROVIDER = 'Service Provider';
+export const SERVICE_PROVIDERS = 'Service Providers';
 
 export const PHONE_NUMBER = 'Phone Number';
 
@@ -23,3 +26,6 @@ export const PROFILE_SHARED_SUCCESSFULLY = 'Profile shared successfully';
 export const COULD_NOT_SHARE_THE_PROFILE = 'Could not share the profile';
 export const PEASE_TRY_AGAIN_LATER = 'Please try again later';
 export const CHECKOUT_THIS_CHEF_ON_HOMEMATE = 'Checkout this chef on HomeMate!';
+
+export const ADDED_TO_FAVOURITES = 'Added to favourites';
+export const YOU_CAN_ACCESS_THE_USER_EASILY_LATER = 'You can access this user easily later';

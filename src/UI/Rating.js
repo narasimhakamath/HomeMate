@@ -7,16 +7,16 @@ import Paragraph from "./Paragraph";
 
 const Rating = ({ rating, count }) => {
 	return(
-		<ViewBox>
+		<ViewBox flexDirection="row" alignItems="center">
 			<AirbnbRating
 				count={5}
 				defaultRating={rating || 0}
 				isDisabled={true}
-				size={15}
-				reviewSize={0}
+				size={18}
+				showRating={false}
 				selectedColor={theme.colors.common.dark}
 			/>
-			<Paragraph textAlign="center">({count} reviews)</Paragraph>
+			<Paragraph mx={1} textAlign="center">({count})</Paragraph>
 		</ViewBox>
 	);
 };

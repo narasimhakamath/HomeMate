@@ -11,10 +11,23 @@ const LoadingScreen = () => {
 
 	return(
 		<ViewBox flex={1} justifyContent="center">
-			<ActivityIndicator color="black" />
-			<Heading my={2} textAlign="center">{LOADING1}</Heading>
+			<Lottie
+				autoPlay={true}
+				source={require("../assets/animations/FallingBalls.json")}
+			/>
+			<Lottie
+				autoPlay={true}
+				source={require("../assets/animations/WaitingCat.json")}
+			/>
 		</ViewBox>
 	);
 };
+
+const Lottie = styled(LottieView)`
+	height: ${({ theme }) => theme.shape.spacing(80)}px;
+	width: ${({ theme }) => theme.shape.spacing(80)}px;
+	align-self: center;
+`;
+
 
 export default LoadingScreen;
