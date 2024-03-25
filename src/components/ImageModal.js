@@ -1,18 +1,49 @@
 import React from "react";
-import { Modal } from "react-native";
-import ImageViewer from 'react-native-image-zoom-viewer';
+import { Modal, TouchableOpacity, View } from "react-native";
+import styled from "styled-components";
+import { AntDesign } from '@expo/vector-icons';
 
-const ImageModal = ({ selectedImageURI }) => {
+import ViewBox from "../UI/ViewBox";
 
-	const images = [{ url: selectedImageURI }];
 
-	console.log(images);
-
+const ImageModal = ({ imageURI, isVisible, closeModal }) => {
+	console.log('imageURI', imageURI);
 	return(
-		<Modal visible={true} transparent={true}>
-			<ImageViewer imageUrls={images}/>
+		<Modal
+			visible={isVisible}
+			transparent={true}
+			onRequestClose={closeModal}
+		>
+			<Container>
+				<CloseButton onPress={closeModal}>
+					<AntDesign name="closecircle" size={30} color="#FFFFFF" />
+				</CloseButton>
+				<Image
+					resizeMode="contain"
+					source={{ uri: imageURI }}
+				/>
+			</Container>
 		</Modal>
 	);
 };
+
+const Container = styled(View)`
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.9);
+`;
+
+const Image = styled.Image`
+	width: 90%;
+	height: 90%;
+`;
+
+const CloseButton = styled(TouchableOpacity)`
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	z-index: 1;
+`;
 
 export default ImageModal;

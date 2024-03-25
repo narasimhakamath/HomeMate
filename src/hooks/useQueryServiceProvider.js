@@ -27,6 +27,8 @@ const useQueryServiceProvider = options => {
 				totalEvents: 1712,
 				totalUsers: 63,
 				rating: 4.9,
+				phoneNumber: "+918848519709",
+				whatsappNumber: "+918848519709",
 				introduction: "As a dedicated cook, my culinary journey is fueled by a relentless passion for creating memorable dishes that delight the senses. From mastering classic recipes to embracing innovative techniques, I thrive on the thrill of experimentation in the kitchen.",
 				pictures: [
 					{

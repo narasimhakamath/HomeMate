@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Pressable, TouchableOpacity } from "react-native";
-import { Entypo, Ionicons } from '@expo/vector-icons';
+import { Linking, TouchableOpacity, Share } from "react-native";
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import Toast from 'react-native-toast-message';
 
 import Screen from "../UI/Screen";
 import Avatar from "../UI/Avatar";
@@ -11,9 +12,9 @@ import LoadingScreen from "./LoadingScreen";
 import Heading from "../UI/Heading";
 import Subheading from "../UI/Subheading";
 import ViewBox from "../UI/ViewBox";
-import { ABOUT_ME, BOOK, PHOTOS, EVENTS, USERS, CONTACT } from "../utils/strings";
+import { ABOUT_ME, SCHEDULE, PHOTOS, EVENTS, USERS, CONTACT, WHATSAPP_IS_NOT_INSTALLED_IN_YOUR_DEVICE, PLEASE_INSTALL_WHATSAPP_TO_PERFORM_THIS_ACTION, COULD_NOT_SHARE_THE_PROFILE, PEASE_TRY_AGAIN_LATER, CHECKOUT_THIS_CHEF_ON_HOMEMATE } from "../utils/strings";
 import Button from "../UI/Button";
-import PhotoGrid from "../components/PhotoGrid";
+import PhotoGridContainer from "../components/PhotoGridContainer";
 import Subtitle from "../UI/Subtitle";
 import Title from "../UI/Title";
 
@@ -26,6 +27,38 @@ const ServiceProviderScreen = () => {
 
 	if(isError)
 		return <ErrorScreen />
+
+	const callServiceProvider = () => {
+		return Linking.openURL(`tel:${data?.phoneNumber}`);
+	};
+
+	const shareUserProfile = async () => {
+		try {
+			const shareOptions = {
+				message: CHECKOUT_THIS_CHEF_ON_HOMEMATE,
+			};
+
+			Share.share(shareOptions);
+		} catch(error) {
+			Toast.show({
+				type: 'error',
+				text1: COULD_NOT_SHARE_THE_PROFILE,
+				text2: PEASE_TRY_AGAIN_LATER
+			});
+		}
+	};
+
+	const whatsappServiceProvider = async () => {
+		const isValid = await Linking.canOpenURL('whatsapp://send');
+		console.log("isValid", isValid);
+		if(isValid)
+			return Linking.openURL(`whatsapp://send?phone=${data?.whatsappNumber}`);
+		Toast.show({
+			type: 'error',
+			text1: WHATSAPP_IS_NOT_INSTALLED_IN_YOUR_DEVICE,
+			text2: PLEASE_INSTALL_WHATSAPP_TO_PERFORM_THIS_ACTION,
+		});
+	};
 
 	return(
 		<>
@@ -40,21 +73,26 @@ const ServiceProviderScreen = () => {
 
 						<ViewBox flex={1}>
 							<Heading fontWeight={600} textAlign="center" mt={5}>{data?.name}</Heading>
-							<ViewBox mt={4} flexDirection="row" justifyContent="space-around">
+							<ViewBox mt={4} flexDirection="row" justifyContent="space-around" mx={10}>
 								<ViewBox flexDirection="column">
 									<Subheading  fontWeight={600} fontSize={5} textAlign="center">{data?.totalEvents}</Subheading>
-									<Subheading textAlign="center">{EVENTS}</Subheading>
+									<Subheading fontWeight={300} textAlign="center">{EVENTS}</Subheading>
 								</ViewBox>
 								<ViewBox flexDirection="column">
 									<Subheading fontWeight={600} fontSize={5} textAlign="center">{data?.totalUsers}</Subheading>
-									<Subheading textAlign="center">{USERS}</Subheading>
+									<Subheading fontWeight={300} textAlign="center">{USERS}</Subheading>
 								</ViewBox>
 							</ViewBox>
 
-							<ViewBox mt={4}>
-								<IconButton>
+							<ViewBox mt={4} flexDirection="row" justifyContent="center">
+								<IconButton onPress={callServiceProvider}>
 									<Ionicons name="call-sharp" size={20} color="#FFFFFF" />
-									<Title mx={3} color="light" fontWeight={500}>{CONTACT}</Title>
+								</IconButton>
+								<IconButton onPress={whatsappServiceProvider}>
+									<Ionicons name="logo-whatsapp" size={20} color="#FFFFFF" />
+								</IconButton>
+								<IconButton onPress={shareUserProfile}>
+									<Ionicons name="share-outline" size={20} color="#FFFFFF" />
 								</IconButton>
 							</ViewBox>
 						</ViewBox>
@@ -67,13 +105,13 @@ const ServiceProviderScreen = () => {
 
 					<ViewBox mt={5} px={5}>
 						<Heading my={3} fontWeight={500}>{PHOTOS}</Heading>
-						<PhotoGrid images={data?.pictures}/>
+						<PhotoGridContainer images={data?.pictures}/>
 					</ViewBox>
 				</ViewBox>
-
 			</Screen>
+
 			<ViewBox mt={3} mb={3} pl={5} pr={5}>
-				<Button br={3} textTransform="uppercase">{BOOK}</Button>
+				<Button br={3} textTransform="uppercase">{SCHEDULE}</Button>
 			</ViewBox>
 		</>
 	);
@@ -81,10 +119,9 @@ const ServiceProviderScreen = () => {
 
 const IconButton = styled(TouchableOpacity)`
 	background-color: ${({ theme }) => theme.colors.common.dark};
-	padding: ${({ theme }) => theme.shape.spacing(2)}px;
-	padding-top: ${({ theme }) => theme.shape.spacing(2.5)}px;
-	padding-bottom: ${({ theme }) => theme.shape.spacing(2.5)}px;
-	width: 60%;
+	padding: ${({ theme }) => theme.shape.spacing(3)}px;
+	margin-left: ${({ theme }) => theme.shape.spacing(2)}px;
+	margin-right: ${({ theme }) => theme.shape.spacing(2)}px;
 	align-self: center;
 	align-items: center;
 	justify-content: center;

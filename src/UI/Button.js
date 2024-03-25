@@ -39,10 +39,10 @@ const getTextColor = (theme, type) => {
 
 const TouchableComponent = styled(TouchableOpacity)`
 	background-color: ${({ theme, type }) =>  getBackgroundColor(theme, type)};
-	padding-top: ${({ theme }) => theme.shape.spacing(4.5)}px;
+	padding-top: ${({ theme }) => theme.shape.spacing(4)}px;
 	padding-left: ${({ theme }) => theme.shape.spacing(4)}px;
 	padding-right: ${({ theme }) => theme.shape.spacing(4)}px;
-	padding-bottom: ${({ theme }) => theme.shape.spacing(4.5)}px;
+	padding-bottom: ${({ theme }) => theme.shape.spacing(4)}px;
 	border-radius: ${({ theme, br }) => theme.shape.radius(br || 0)}px;
 	flex-direction: row;
 	justify-content: center;

@@ -1,13 +1,14 @@
 
 import 'react-native-gesture-handler';
 import React, { useCallback } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 import theme from './src/utils/theme';
-import { StyleSheet, View } from 'react-native';
 import AuthenticationStack from './src/navigators/AuthenticationStack';
 import HomeStack from './src/navigators/HomeStack';
 
@@ -39,6 +40,9 @@ const App = () => {
 					<HomeStack />
 				</NavigationContainer>
 			</ThemeProvider>
+			<Toast
+				position='bottom'
+			/>
 		</View>
 	);
 };
