@@ -13,6 +13,7 @@ const HomeStack = () => {
 				name="ServiceProvidersScreen"
 				component={ServiceProvidersScreen}
 				options={{
+					headerShown: false,
 					title: SERVICE_PROVIDERS
 				}}
 			/>
@@ -20,6 +21,7 @@ const HomeStack = () => {
 				name="ServiceProviderScreen"
 				component={ServiceProviderScreen}
 				options={{
+					headerShown: false,
 					title: SERVICE_PROVIDER
 				}}
 			/>

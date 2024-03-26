@@ -2,6 +2,11 @@ export const HOMEMATE = 'HOMEMATE';
 export const GET_STARTED = 'Get Started';
 export const INTRODUCTION_TEXT = 'Find your cook and maid for every ocassion';
 
+export const HOME = 'Home';
+export const MY_BOOKINGS = 'My Bookings';
+export const BOOKING_DETAILS = 'Booking Details';
+export const MY_FAVOURITES = 'My Favourites';
+
 export const SERVICE_PROVIDER = 'Service Provider';
 export const SERVICE_PROVIDERS = 'Service Providers';
 

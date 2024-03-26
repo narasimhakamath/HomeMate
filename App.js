@@ -11,6 +11,7 @@ import Toast from 'react-native-toast-message';
 import theme from './src/utils/theme';
 import AuthenticationStack from './src/navigators/AuthenticationStack';
 import HomeStack from './src/navigators/HomeStack';
+import AppDrawer from './src/navigators/AppDrawer';
 
 const App = () => {
 	const [fontsLoaded, fontError] = useFonts({
@@ -37,7 +38,8 @@ const App = () => {
 			<ThemeProvider theme={theme}>
 				<NavigationContainer>
 					{/* <AuthenticationStack/> */}
-					<HomeStack />
+					{/* <HomeStack /> */}
+					<AppDrawer />
 				</NavigationContainer>
 			</ThemeProvider>
 			<Toast
